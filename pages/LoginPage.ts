@@ -1,7 +1,7 @@
 import { type Locator, type Page } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class LoginPage {
-    readonly page: Page;
+export class LoginPage extends BasePage {
     readonly swaglabsLabel: Locator;
     readonly usernameInput: Locator;
     readonly passwordInput: Locator;
@@ -9,7 +9,7 @@ export class LoginPage {
     readonly errorMessageLabel: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page)
         this.swaglabsLabel = page.getByText('Swag Labs');
         this.usernameInput = page.locator('[data-test="username"]');
         this.passwordInput = page.locator('[data-test="password"]');
@@ -22,8 +22,8 @@ export class LoginPage {
     }
 
     async performLogin(user: string, password: string) {
-        await this.usernameInput.fill(user);
-        await this.passwordInput.fill(password);
-        await this.loginButton.click();
+        await this.fillElement(this.usernameInput, user);
+        await this.fillElement(this.passwordInput, password);
+        await this.clickElement(this.loginButton)
     }
 }
