@@ -24,7 +24,7 @@ export class BasePage {
        await locator.fill(text);
     }
 
-    // Base to validate visibility
+    // Base method to validate visibility 
     async isElementVisible(locator : Locator ) {
        await expect(locator).toBeVisible();
     }
