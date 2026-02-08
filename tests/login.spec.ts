@@ -9,3 +9,10 @@ test('Correct Log in', async({page}) => {
     const productsTitle = page.locator('.title');
     await expect(productsTitle).toHaveText('Products')
 })
+
+test('Incorret Log in', async({page}) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.performLogin('standard_user', 'incorret_sauce')
+    await expect(loginPage.errorMessageLabel).toBeVisible();
+})
