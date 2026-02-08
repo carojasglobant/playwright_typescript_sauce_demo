@@ -28,4 +28,9 @@ export class BasePage {
     async isElementVisible(locator : Locator ) {
        await expect(locator).toBeVisible();
     }
+
+      // Base method to validate text inside element
+    async doesTheElementContainsText(locator : Locator, text: string ) {
+       await expect(locator).toHaveText(text);
+    }
 }
