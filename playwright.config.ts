@@ -23,36 +23,35 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: 'https://www.saucedemo.com/',
 
-    /* Add screenshot on failure */
-    screenshot: 'only-on-failure',
-
-    /* Add video en failure */
-    video: 'retain-on-failure',
-
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-  },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'web',
+      testDir: './tests/web',
+      use: {
+        ...devices['Desktop Chrome'],
+        /* Base URL to use in actions like `await page.goto('')`. */
+        baseURL: 'https://www.saucedemo.com/',
+
+        /* Add screenshot on failure */
+        screenshot: 'only-on-failure',
+
+        /* Add video en failure */
+        video: 'retain-on-failure',
+
+        /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+        trace: 'on-first-retry',
+      },
     },
 
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: 'api',
+      testDir: './tests/api',
+      use: { 
+        baseURL: 'https://petstore3.swagger.io/api/v3/',
+       },
     },
 
     /* Test against mobile viewports. */
